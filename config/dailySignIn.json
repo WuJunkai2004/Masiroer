@@ -1,0 +1,25 @@
+{
+    "URL":"https://masiro.me/admin/dailySignIn",
+    "isWithCookie":true,
+    "isWithData":false,
+    "data":{
+        "method":null,
+        "dataset":[
+            
+        ]
+    },
+    "response":{
+        "order":[
+            "parse",
+            "return"
+        ],
+        "parse":{
+            "type":"func",
+            "func":"json"
+        },
+        "return":{
+            "type":"return",
+            "refer":"parse"
+        }
+    }
+}
