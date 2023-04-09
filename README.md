@@ -13,4 +13,5 @@ As per the current plan, parsing configurations will be categorized into four ty
 date | description
 ---- | ---
 3/19 | adding the current plan
+4/9  | defined implementation method
 </details>
