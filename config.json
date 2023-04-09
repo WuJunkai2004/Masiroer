@@ -1,0 +1,20 @@
+{
+    "forum": [
+        {
+            "name":"search",
+            "file":"searchForum.json"
+        },
+        {
+            "name":"reply_post",
+            "file":"searchForum.json"
+        },
+        {
+            "name":"vote_post",
+            "file":"searchForum.json"
+        }
+    ],
+    "books": [],
+    "lists": [],
+    "myself": [],
+    "users": []
+}
