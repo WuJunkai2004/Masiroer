@@ -14,4 +14,5 @@ date | description
 ---- | ---
 3/19 | adding the current plan
 4/9  | defined implementation method
+4/16 | refining the algorithm
 </details>
