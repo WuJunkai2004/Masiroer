@@ -1,0 +1,41 @@
+{
+    "URL":"https://masiro.me/admin/auth/login",
+    "isSaveCookie":true,
+    "isWithCookie":false,
+    "isWithData":true,
+    "data":{
+        "method":"urlencoded",
+        "dataset":[
+            {
+                "name":"username",
+                "type":"str",
+                "required":true
+            },
+            {
+                "name":"password",
+                "type":"str",
+                "required":true
+            },
+            {
+                "name":"remember",
+                "type":"int",
+                "required":true
+            },
+            {
+                "name":"_token",
+                "type":"str",
+                "required":false
+            },
+            {
+                "name":"activationcode",
+                "type":"int",
+                "required":false
+            }
+        ]
+    },
+    "response":{
+        "order":[
+            
+        ]
+    }
+}

@@ -1,5 +1,6 @@
 {
-    "URL":"https://masiro.me/admin/loadMoreNovels?page=1&keyword=你好&tags=25"
+    "URL":"https://masiro.me/admin/loadMoreNovels?page=1&keyword=你好&tags=25",
+    "isSaveCookie":true,
     "isWithCookie":true,
     "isWithData":true,
     "data":{
