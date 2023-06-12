@@ -6,8 +6,6 @@ import sys
 
 class _cookies:
     __cookie__ = {}
-    def __init__(self):
-        pass
     def __setitem__(self, name, value):
         self.__cookie__[name] = value
     def __getitem__(self, name):
@@ -17,6 +15,12 @@ class _cookies:
     def save(self, gets):
         for name in gets.keys():
             self[name] = gets[name]
+    def load(self, file):
+        with open(file, 'r') as fin:
+            self.save( json.load(fin) )
+    def dump(self, file):
+        with open(file, 'w+') as fout:
+            json.dump(self.__cookie__, fout)
 
 class defined_cookies(_cookies):
     pass
@@ -57,7 +61,11 @@ class executor:
     def translate_request(self, data):
         base = ["POST"if(self.rule['isWithData'])else'GET', self.rule['URL'] ]
         info = {
-            'headers' : {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'}
+            'headers' : {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36',
+                'Accept':'application/json, text/javascript, */*; q=0.01',
+                'Accept-Language':'zh-CN,zh;q=0.9,en;q=0.8'
+            }
         }
         if(self.rule['isWithData']):
             data_type = {"urlencoded":"data",
@@ -88,7 +96,7 @@ class executor:
                 result[index] = re.findall(method[index]["rule"], data)
             elif(method[index]["type"]=='func'):
                 if(method[index]["func"]=='json'):
-                    result = json.loads(data)
+                    result[index] = json.loads(data)
             elif(method[index]['type']=='range'):
                 result[index] = []
                 for sub in result[ method[index]['refer'] ]:

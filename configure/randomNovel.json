@@ -1,6 +1,6 @@
 {
-    "desription":"daily check in",
-    "URL":"https://masiro.me/admin/dailySignIn",
+    "desription":"get a list of novels which were shown on index randomly",
+    "URL":"https://masiro.me/admin/randomNovel",
     "isSaveCookie":true,
     "isWithCookie":true,
     "isWithData":false,

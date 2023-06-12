@@ -14,11 +14,20 @@
         }
     ],
     "books": [],
-    "lists": [],
+    "lists": [
+        {
+            "name":"get_random_novel",
+            "file":"randomNovel.json"
+        }
+    ],
     "myself": [
         {
             "name":"login",
             "file":"login.json"
+        },
+        {
+            "name":"check_in",
+            "file":"dailySignIn.json"
         }
     ],
     "users": []
