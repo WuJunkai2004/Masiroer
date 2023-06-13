@@ -1,18 +1,31 @@
-# Masiroer
-This a SDK for API of masiro.me  
-> Due to the developer's current busy schedule with academic pursuits, the project is expected to commence officially in July and be completed before September.
+# <center>Masiroer</center>
+## <center>This a SDK for API of masiro</center>
+</br>
+> 该项目的目的是为后续的开发APP做准备，因此使用了`解析程序`+`配置文件`的做法。  
 
-The goal of Masiroer is to create an SDK that is as cross-lingual as possible, in preparation for developing Masiro-based applications.  
-The project will consist of one or multiple parsing programs and multiple sets of parsing configurations.  
-At the current stage, the developer will provide parsing programs developed using Python.  
-As per the current plan, parsing configurations will be categorized into four types: self, menu, user, and book.  
+### 解析程序
+[x] python  
+[ ] kitlin  
+[ ] JavaScript
 
-<details>
-<summary>log</summary>
+### 配置文件
+#### books
+......
 
-date | description
----- | ---
-3/19 | adding the current plan
-4/9  | defined implementation method
-4/16 | refining the algorithm
-</details>
+#### forum
+[ ] search
+[ ] reply post
+[ ] vote post
+......
+
+#### lists
+[x] get random novel
+[ ] get latest novel
+......
+
+#### myself
+[ ] login
+[ ] check in
+
+#### users
+......

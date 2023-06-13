@@ -18,6 +18,10 @@
         {
             "name":"get_random_novel",
             "file":"randomNovel.json"
+        },
+        {
+            "name":"get_latest_novel",
+            "file":"recentUpdates.json"
         }
     ],
     "myself": [
