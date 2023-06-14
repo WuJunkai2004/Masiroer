@@ -34,5 +34,10 @@
             "file":"dailySignIn.json"
         }
     ],
-    "users": []
+    "users": [
+        {
+            "name":"get_infobox",
+            "file":"userInfoBox.json"
+        }
+    ]
 }

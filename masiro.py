@@ -59,16 +59,18 @@ class executor:
         return self.translate_content(request.text, self.rule['response'])
     
     def translate_request(self, data):
-        base = ["POST"if(self.rule['isWithData'])else'GET', self.rule['URL'] ]
+        base = ["POST"if(self.rule['isWithData'] and self.rule['data']['method'] not in ('params'))else'GET', self.rule['URL'] ]
         info = {
             'headers' : {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36',
-                'Accept':'application/json, text/javascript, */*; q=0.01',
+                'Accept':'*/',
                 'Accept-Language':'zh-CN,zh;q=0.9,en;q=0.8'
             }
         }
+        print(base,file = sys.stderr)
         if(self.rule['isWithData']):
             data_type = {"urlencoded":"data",
+                         "params"    :"params"
                          }[self.rule['data']['method']]
             info[data_type] = data
         if(self.rule['isWithCookie']):

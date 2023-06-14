@@ -14,19 +14,21 @@
 - [ ] ......
 
 #### forum
-- [ ] search
+- [ ] search forum
 - [ ] reply post
 - [ ] vote post
 - [ ] ......
 
 #### lists
 - [x] get random novel
-- [ ] get latest novel
+- [x] get latest novel
 - [ ] ......
 
 #### myself
 - [ ] login
 - [x] check in
+- [ ] ......
 
 #### users
+- [x] get user info box
 - [ ] ......

@@ -1,6 +1,6 @@
 {
     "desription":"get two lists of novels which were updated recently",
-    "URL":"https://masiro.me/admin/recentUpdates",
+    "URL":"https://masiro.me/admin/recentUpdatesh",
     "isSaveCookie":true,
     "isWithCookie":true,
     "isWithData":false,

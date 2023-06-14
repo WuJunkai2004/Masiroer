@@ -1,0 +1,45 @@
+{
+    "URL":"https://masiro.me/admin/userInfoBox",
+    "isSaveCookie":true,
+    "isWithCookie":true,
+    "isWithData":true,
+    "data":{
+        "method":"params",
+        "dataset":[
+            {
+                "name":"user_id",
+                "type":"int",
+                "required":true
+            }
+        ]
+    },
+    "response":{
+        "order":[
+            "head_image",
+            "name",
+            "level",
+            "fans",
+            "id"
+        ],
+        "head_image":{
+            "type":"regex",
+            "rule":"(?<=src=\").+?(?=\".+img)"
+        },
+        "name":{
+            "type":"regex",
+            "rule":"[^\\s]+?(?=<span)"
+        },
+        "level":{
+            "type":"regex",
+            "rule":"(?<=<span class=\"user-lev\">).+?(?=</span>)"
+        },
+        "fans":{
+            "type":"regex",
+            "rule":"(?<=<span class=\"fans\">).+?(?=</span>)"
+        },
+        "id":{
+            "type":"regex",
+            "rule":"(?<=<small>ID:).+?(?=</small>)"
+        }
+    }
+}
