@@ -1,0 +1,26 @@
+{
+    "URL":"https://masiro.me/admin/auth/login",
+    "isSaveCookie":true,
+    "isWithCookie":false,
+    "isWithData":false,
+    "data":{
+        "method":null,
+        "dataset":[
+            
+        ]
+    },
+    "response":{
+        "order":[
+            "token",
+            "return"
+        ],
+        "token":{
+            "type":"regex",
+            "rule":"(?<=token\" value=\").+?(?=\")"
+        },
+        "cf":{
+            "type":"regex",
+            "rule":"cf"
+        }
+    }
+}

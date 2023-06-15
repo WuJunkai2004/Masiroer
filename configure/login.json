@@ -4,7 +4,7 @@
     "isWithCookie":false,
     "isWithData":true,
     "data":{
-        "method":"urlencoded",
+        "method":"data",
         "dataset":[
             {
                 "name":"username",
@@ -24,7 +24,7 @@
             {
                 "name":"_token",
                 "type":"str",
-                "required":false
+                "required":true
             },
             {
                 "name":"activationcode",

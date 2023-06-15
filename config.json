@@ -13,7 +13,7 @@
             "file":"searchForum.json"
         }
     ],
-    "books": [],
+    "book": [],
     "lists": [
         {
             "name":"get_random_novel",
@@ -24,20 +24,30 @@
             "file":"recentUpdates.json"
         }
     ],
-    "myself": [
+    "self": [
+        {
+            "name":"check_in",
+            "file":"dailySignIn.json"
+        },
+        {
+            "name":"get_notice",
+            "file":"myNotice.json"
+        }
+    ],
+    "user": [
+        {
+            "name":"get_infobox",
+            "file":"userInfoBox.json"
+        }
+    ],
+    "auth": [
         {
             "name":"login",
             "file":"login.json"
         },
         {
-            "name":"check_in",
-            "file":"dailySignIn.json"
-        }
-    ],
-    "users": [
-        {
-            "name":"get_infobox",
-            "file":"userInfoBox.json"
+            "name":"get_token",
+            "file":"getToken.json"
         }
     ]
 }

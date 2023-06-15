@@ -4,7 +4,7 @@
     "isWithCookie":true,
     "isWithData":true,
     "data":{
-        "method":"urlencoded",
+        "method":"data",
         "dataset":[
             {
                 "name":"keyword",
