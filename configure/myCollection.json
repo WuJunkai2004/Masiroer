@@ -1,0 +1,28 @@
+{
+    "URL":"https://masiro.me/admin/loadMoreNovels",
+    "isSaveCookie":true,
+    "isWithCookie":true,
+    "isWithData":true,
+    "data":{
+        "method":"params",
+        "dataset":[
+            {
+                "name":"page",
+                "type":"int",
+                "required":true
+            }
+        ]
+    },
+    "response":{
+        "order":[
+            "json","split","detail"
+        ],
+        "json":{
+            "type":"func",
+            "func":"json"
+        }
+        "split":{
+            "type":
+        }
+    }
+}

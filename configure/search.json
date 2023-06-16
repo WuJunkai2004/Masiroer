@@ -1,10 +1,10 @@
 {
-    "URL":"https://masiro.me/admin/loadMoreNovels?page=1&keyword=你好&tags=25",
+    "URL":"https://masiro.me/admin/loadMoreNovels",
     "isSaveCookie":true,
     "isWithCookie":true,
     "isWithData":true,
     "data":{
-        "method":"data",
+        "method":"params",
         "dataset":[
             {
                 "name":"keyword",
@@ -17,19 +17,38 @@
                 "required":false
             },
             {
+                "name":"ori",
+                "type":"int",
+                "required":false
+            },
+            {
                 "name":"tags",
-                "type":"str",
+                "type":"list",
+                "required":false
+            },
+            {
+                "name":"tags_inverse",
+                "type":"list",
+                "required":false
+            },
+            {
+                "name":"order",
+                "type":"int",
                 "required":false
             }
         ]
     },
     "response":{
         "order":[
-            "code"
+            "decode","save"
         ],
-        "code":{
+        "decode":{
             "type":"func",
-            "func":"decode"
+            "func":"code"
+        },
+        "save":{
+            "type":"func",
+            "func":"save"
         }
     }
 }

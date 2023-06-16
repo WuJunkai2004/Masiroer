@@ -22,6 +22,10 @@
         {
             "name":"get_latest_novel",
             "file":"recentUpdates.json"
+        },
+        {
+            "name":"search",
+            "file":"search.json"
         }
     ],
     "self": [
