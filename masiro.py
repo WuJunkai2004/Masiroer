@@ -103,8 +103,11 @@ class _executor:
             result[ dataset[index]['name'] ] = args[index]
         result.update(kwargs)
         for item in dataset:
-            if(item['required'] and item['name'] not in result.keys()):
-                raise AttributeError('The Attibution of {} is Required'.format(item['name']))
+            if(item['name'] not in result.keys()):
+                if(item['required']):
+                    raise AttributeError('The Attibution of {} is Required'.format(item['name']))
+                if(not item["required"] and "defined" in item.keys()):
+                    result[ item["name"] ] = item["defined"]
         return result
 
     def translate_content(self, data, method):
@@ -115,14 +118,14 @@ class _executor:
             if  ( method[index]['type'] == "regex"  ):
                 result[index] = _re.search(method[index]["rule"], data).group()
             elif( method[index]['type'] == 'find'   ):
-                result[index] = _re.findall(method[index]["rule"], data)
+                result[index] = [ item.group() for item in _re.finditer(method[index]["rule"], data) ]
             elif( method[index]["type"] == 'func'   ):
                 if  ( method[index]["func"] == 'json' ):
                     result[index] = _json.loads(data)
                 elif( method[index]["func"] == "code" ):
                     data = data.encode().decode("unicode_escape")
                 elif( method[index]["func"] == "save" ):
-                    with open("temp.txt","w+") as fout:
+                    with open("temp/temp.txt","w+") as fout:
                         fout.write(data)
             elif( method[index]['type'] == 'refer'  ):
                 get = result

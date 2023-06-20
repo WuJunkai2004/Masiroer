@@ -1,0 +1,27 @@
+{
+    "URL":"https://masiro.me/admin/gachiyaWishingPond",
+    "isSaveCookie":true,
+    "isWithCookie":true,
+    "isWithData":true,
+    "data":{
+        "method":"data",
+        "dataset":[
+            {
+                "name":"cost",
+                "type":"int",
+                "required":false
+            },
+            {
+                "name":"wp_id",
+                "type":"int",
+                "required":"false",
+                "defined":1
+            }
+        ]
+    },
+    "response":{
+        "order":[
+            
+        ]
+    }
+}

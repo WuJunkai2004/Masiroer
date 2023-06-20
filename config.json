@@ -36,6 +36,10 @@
         {
             "name":"get_notice",
             "file":"myNotice.json"
+        },
+        {
+            "name":"wish",
+            "file":"gachiyaWishingPond.json"
         }
     ],
     "user": [

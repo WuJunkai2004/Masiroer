@@ -40,15 +40,15 @@
     },
     "response":{
         "order":[
-            "decode","save"
+            "decode","find"
         ],
         "decode":{
             "type":"func",
             "func":"code"
         },
-        "save":{
-            "type":"func",
-            "func":"save"
+        "find":{
+            "type":"find",
+            "rule":"<a ([\\s\\S\n]+?<\\\\/div>){8}"
         }
     }
 }
