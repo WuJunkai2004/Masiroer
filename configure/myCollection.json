@@ -20,9 +20,9 @@
         "json":{
             "type":"func",
             "func":"json"
-        }
+        },
         "split":{
-            "type":
+            "type":""
         }
     }
 }

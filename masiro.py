@@ -5,11 +5,28 @@ import sys  as _sys
 import requests as _requests
 
 
+def _search_solo(pattern, string):
+    get = _re.search(pattern, string)
+    if(get):
+        return get.group()
+    return ''
+
+
+def _search_mult(pattern, string):
+    gets = []
+    for item in _re.finditer(pattern, string):
+        gets.append( item.group() )
+    return gets
+
+
 class _cookies:
-    __cookie__ = {}
+    __files__   = []
     def __init__(self, file = None):
+        self.__cookie__ = {}
         if(file):
-            self.start(file)
+            self.__files__.append(file)
+        if(self.__files__):
+            self.start(self.__files__[-1])
 
     def __setitem__(self, name, value):
         self.__cookie__[name] = value
@@ -52,7 +69,7 @@ class _executor:
 
     def load(self):
         try:
-            with open(self.file, 'r') as fin:
+            with open(self.file, 'r', encoding='UTF-8') as fin:
                 self.rule = _json.load(fin)
         except FileNotFoundError:
             print("Error: File not found")
@@ -72,13 +89,7 @@ class _executor:
         if(self.rule['isSaveCookie']):
             self.cook().puts( request.cookies.get_dict() )
 
-        try:
-            result = self.translate_content(request.text, self.rule['response'])
-        except:
-            _sys.stderr.write("Error: translatee content")
-            _sys.stdout.write(request.text)
-        else:
-            return result
+        return self.translate_content(request.text, self.rule['response'])
         
     
     def translate_request(self, data):
@@ -116,9 +127,9 @@ class _executor:
             if  ( method[index]['type'] == 'return' ):
                 return result[ method[index]['refer'] ]
             if  ( method[index]['type'] == "regex"  ):
-                result[index] = _re.search(method[index]["rule"], data).group()
+                result[index] = _search_solo(method[index]["rule"], data)
             elif( method[index]['type'] == 'find'   ):
-                result[index] = [ item.group() for item in _re.finditer(method[index]["rule"], data) ]
+                result[index] = _search_mult(method[index]["rule"], data)
             elif( method[index]["type"] == 'func'   ):
                 if  ( method[index]["func"] == 'json' ):
                     result[index] = _json.loads(data)
@@ -132,7 +143,7 @@ class _executor:
                 for item in method[index]["rule"]:
                     get = get[item]
                 result[index] = get
-            elif( method[index]['type'] ==' range'  ):
+            elif( method[index]['type'] == 'range'  ):
                 result[index] = []
                 for sub in result[ method[index]['refer'] ]:
                     result[index].append( self.translate_content(sub, method[index]['rule']) )

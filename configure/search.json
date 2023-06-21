@@ -40,7 +40,7 @@
     },
     "response":{
         "order":[
-            "decode","find"
+            "decode","find","detail"
         ],
         "decode":{
             "type":"func",
@@ -49,6 +49,27 @@
         "find":{
             "type":"find",
             "rule":"<a ([\\s\\S\n]+?<\\\\/div>){8}"
+        },
+        "detail":{
+            "type":"range",
+            "refer":"find",
+            "rule":{
+                "order":[
+                    "title","novel_id","author"
+                ],
+                "title":{
+                    "type":"regex",
+                    "rule":"(?<=title=\").+?(?=\")"
+                },
+                "novel_id":{
+                    "type":"regex",
+                    "rule":"(?<=novel_id=)\\d+?(?=\")"
+                },
+                "author":{
+                    "type":"regex",
+                    "rule":"(?<=作者: ).+?(?=<)"
+                }
+            }
         }
     }
 }
