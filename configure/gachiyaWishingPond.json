@@ -14,14 +14,18 @@
             {
                 "name":"wp_id",
                 "type":"int",
-                "required":"false",
+                "required":false,
                 "defined":1
             }
         ]
     },
     "response":{
         "order":[
-            
-        ]
+            "save"
+        ],
+        "save":{
+            "type":"func",
+            "func":"save"
+        }
     }
 }

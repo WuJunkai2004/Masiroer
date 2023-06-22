@@ -16,10 +16,12 @@
         ],
         "token":{
             "type":"regex",
+            "func":"hunt",
             "rule":"(?<=token\" value=\").+?(?=\")"
         },
         "cf":{
             "type":"regex",
+            "func":"hunt",
             "rule":"cf"
         }
     }

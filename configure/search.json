@@ -40,14 +40,15 @@
     },
     "response":{
         "order":[
-            "decode","find","detail"
+            "decode","find","detail","return"
         ],
         "decode":{
             "type":"func",
             "func":"code"
         },
         "find":{
-            "type":"find",
+            "type":"regex",
+            "func":"find",
             "rule":"<a ([\\s\\S\n]+?<\\\\/div>){8}"
         },
         "detail":{
@@ -55,21 +56,43 @@
             "refer":"find",
             "rule":{
                 "order":[
-                    "title","novel_id","author"
+                    "title","novel_id","author","cover","translators","tags"
                 ],
                 "title":{
                     "type":"regex",
+                    "func":"hunt",
                     "rule":"(?<=title=\").+?(?=\")"
                 },
                 "novel_id":{
                     "type":"regex",
+                    "func":"hunt",
                     "rule":"(?<=novel_id=)\\d+?(?=\")"
                 },
                 "author":{
                     "type":"regex",
+                    "func":"hunt",
                     "rule":"(?<=作者: ).+?(?=<)"
+                },
+                "cover":{
+                    "type":"regex",
+                    "func":"hunt",
+                    "rule":"(?<=lay-src=\").+?(?=\")"
+                },
+                "translators":{
+                    "type":"regex",
+                    "func":"seek",
+                    "rule":"<span class=\"ts\".*?>(.*?)<\\\\/span>"
+                },
+                "tags":{
+                    "type":"regex",
+                    "func":"seek",
+                    "rule":"<span class=\"tag\".*?>(.*?)<\\\\/span>"
                 }
             }
+        },
+        "return":{
+            "type":"return",
+            "refer":"detail"
         }
     }
 }

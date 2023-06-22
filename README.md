@@ -26,12 +26,13 @@
 #### lists
 - [x] get random novel
 - [x] get latest novel
-- [ ] search
+- [x] search (mini version)
+- [ ] get my collections
 - [ ] ......
 
 #### self
 - [x] check in
-- [ ] get my notice
+- [x] get my notice
 - [ ] wish
 - [ ] ......
 

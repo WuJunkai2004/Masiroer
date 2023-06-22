@@ -5,21 +5,7 @@ import sys  as _sys
 import requests as _requests
 
 
-def _search_solo(pattern, string):
-    get = _re.search(pattern, string)
-    if(get):
-        return get.group()
-    return ''
-
-
-def _search_mult(pattern, string):
-    gets = []
-    for item in _re.finditer(pattern, string):
-        gets.append( item.group() )
-    return gets
-
-
-class _cookies:
+class cookies:
     __files__   = []
     def __init__(self, file = None):
         self.__cookie__ = {}
@@ -56,12 +42,8 @@ class _cookies:
         pass
 
 
-class defined_cookies(_cookies):
-    pass
-
-
 class _executor:
-    def __init__(self, config_file, use_cookie = defined_cookies):
+    def __init__(self, config_file, use_cookie = cookies):
         self.is_load = False
         self.file = config_file
         self.rule = None
@@ -126,10 +108,16 @@ class _executor:
         for index in method['order']:
             if  ( method[index]['type'] == 'return' ):
                 return result[ method[index]['refer'] ]
+
             if  ( method[index]['type'] == "regex"  ):
-                result[index] = _search_solo(method[index]["rule"], data)
-            elif( method[index]['type'] == 'find'   ):
-                result[index] = _search_mult(method[index]["rule"], data)
+                if  ( method[index]['func'] == 'hunt' ):
+                    get = _re.search(method[index]["rule"], data)
+                    result[index] = get.group() if(get)else ''
+                elif( method[index]['func'] == 'find' ):
+                    result[index] = [ get.group() for get in _re.finditer(method[index]["rule"], data) ]
+                elif( method[index]['func'] == 'seek' ):
+                    result[index] = _re.findall(method[index]['rule'], data)
+
             elif( method[index]["type"] == 'func'   ):
                 if  ( method[index]["func"] == 'json' ):
                     result[index] = _json.loads(data)
@@ -138,11 +126,15 @@ class _executor:
                 elif( method[index]["func"] == "save" ):
                     with open("temp/temp.txt","w+") as fout:
                         fout.write(data)
+                elif( method[index]["func"] == 'del'  ):
+                    del result[ method[index]['refer'] ]
+
             elif( method[index]['type'] == 'refer'  ):
                 get = result
                 for item in method[index]["rule"]:
                     get = get[item]
                 result[index] = get
+
             elif( method[index]['type'] == 'range'  ):
                 result[index] = []
                 for sub in result[ method[index]['refer'] ]:

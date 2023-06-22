@@ -23,22 +23,27 @@
         ],
         "head_image":{
             "type":"regex",
+            "func":"hunt",
             "rule":"(?<=src=\").+?(?=\".+img)"
         },
         "name":{
             "type":"regex",
+            "func":"hunt",
             "rule":"[^\\s]+?(?=<span)"
         },
         "level":{
             "type":"regex",
+            "func":"hunt",
             "rule":"(?<=<span class=\"user-lev\">).+?(?=</span>)"
         },
         "fans":{
             "type":"regex",
+            "func":"hunt",
             "rule":"(?<=<span class=\"fans\">).+?(?=</span>)"
         },
         "id":{
             "type":"regex",
+            "func":"hunt",
             "rule":"(?<=<small>ID:).+?(?=</small>)"
         }
     }
