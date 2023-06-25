@@ -35,6 +35,11 @@
                 "name":"order",
                 "type":"int",
                 "required":false
+            },
+            {
+                "name":"status",
+                "type":"int",
+                "required":false
             }
         ]
     },
@@ -56,7 +61,7 @@
             "refer":"find",
             "rule":{
                 "order":[
-                    "title","novel_id","author","cover","translators","tags"
+                    "title","novel_id","author","cover","translators","tags","new","comment","like","favorite"
                 ],
                 "title":{
                     "type":"regex",
@@ -87,6 +92,26 @@
                     "type":"regex",
                     "func":"seek",
                     "rule":"<span class=\"tag\".*?>(.*?)<\\\\/span>"
+                },
+                "new":{
+                    "type":"regex",
+                    "func":"hunt",
+                    "rule":"(?<=最新: ).+?(?=<)"
+                },
+                "comment":{
+                    "type":"regex",
+                    "func":"hunt",
+                    "rule":"(?<=热度: ).+?(?=评论)"
+                },
+                "like":{
+                    "type":"regex",
+                    "func":"hunt",
+                    "rule":"(?<=评论 ).+?(?=点赞)"
+                },
+                "favorite":{
+                    "type":"regex",
+                    "func":"hunt",
+                    "rule":"(?<=点赞 ).+?(?=收藏)"
                 }
             }
         },

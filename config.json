@@ -40,6 +40,10 @@
         {
             "name":"wish",
             "file":"gachiyaWishingPond.json"
+        },
+        {
+            "name":"get_favorite",
+            "file":"myCollection.json"
         }
     ],
     "user": [

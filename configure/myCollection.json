@@ -7,22 +7,123 @@
         "method":"params",
         "dataset":[
             {
+                "name":"collection",
+                "type":"int",
+                "required":false,
+                "defined":1
+            },
+            {
                 "name":"page",
                 "type":"int",
-                "required":true
+                "required":false
+            },
+            {
+                "name":"keyword",
+                "type":"str",
+                "required":false
+            },
+            {
+                "name":"ori",
+                "type":"int",
+                "required":false
+            },
+            {
+                "name":"tags",
+                "type":"list",
+                "required":false
+            },
+            {
+                "name":"tags_inverse",
+                "type":"list",
+                "required":false
+            },
+            {
+                "name":"order",
+                "type":"int",
+                "required":false
+            },
+            {
+                "name":"status",
+                "type":"int",
+                "required":false
             }
         ]
     },
     "response":{
         "order":[
-            "json","split","detail"
+            "decode","find","detail","return"
         ],
-        "json":{
+        "decode":{
             "type":"func",
-            "func":"json"
+            "func":"code"
         },
-        "split":{
-            "type":""
+        "find":{
+            "type":"regex",
+            "func":"find",
+            "rule":"<a ([\\s\\S\n]+?<\\\\/div>){8}"
+        },
+        "detail":{
+            "type":"range",
+            "refer":"find",
+            "rule":{
+                "order":[
+                    "title","novel_id","author","cover","translators","tags","new","comment","like","favorite"
+                ],
+                "title":{
+                    "type":"regex",
+                    "func":"hunt",
+                    "rule":"(?<=title=\").+?(?=\")"
+                },
+                "novel_id":{
+                    "type":"regex",
+                    "func":"hunt",
+                    "rule":"(?<=novel_id=)\\d+?(?=\")"
+                },
+                "author":{
+                    "type":"regex",
+                    "func":"hunt",
+                    "rule":"(?<=作者: ).+?(?=<)"
+                },
+                "cover":{
+                    "type":"regex",
+                    "func":"hunt",
+                    "rule":"(?<=lay-src=\").+?(?=\")"
+                },
+                "translators":{
+                    "type":"regex",
+                    "func":"seek",
+                    "rule":"<span class=\"ts\".*?>(.*?)<\\\\/span>"
+                },
+                "tags":{
+                    "type":"regex",
+                    "func":"seek",
+                    "rule":"<span class=\"tag\".*?>(.*?)<\\\\/span>"
+                },
+                "new":{
+                    "type":"regex",
+                    "func":"hunt",
+                    "rule":"(?<=最新: ).+?(?=<)"
+                },
+                "comment":{
+                    "type":"regex",
+                    "func":"hunt",
+                    "rule":"(?<=热度: ).+?(?=评论)"
+                },
+                "like":{
+                    "type":"regex",
+                    "func":"hunt",
+                    "rule":"(?<=评论 ).+?(?=点赞)"
+                },
+                "favorite":{
+                    "type":"regex",
+                    "func":"hunt",
+                    "rule":"(?<=点赞 ).+?(?=收藏)"
+                }
+            }
+        },
+        "return":{
+            "type":"return",
+            "refer":"detail"
         }
     }
 }
