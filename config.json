@@ -13,7 +13,12 @@
             "file":"searchForum.json"
         }
     ],
-    "book": [],
+    "book": [
+        {
+            "name":"get_menu",
+            "file":"getMenu.json"
+        }
+    ],
     "lists": [
         {
             "name":"get_random_novel",

@@ -124,7 +124,7 @@ class _executor:
                 elif( method[index]["func"] == "code" ):
                     data = data.encode().decode("unicode_escape")
                 elif( method[index]["func"] == "save" ):
-                    with open("temp/temp.txt","w+") as fout:
+                    with open("temp/temp.txt", "w+", encoding='UTF-8') as fout:
                         fout.write(data)
                 elif( method[index]["func"] == 'del'  ):
                     del result[ method[index]['refer'] ]
