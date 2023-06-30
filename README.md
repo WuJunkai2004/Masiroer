@@ -3,7 +3,7 @@
 </br>
 
 > 该项目的目的是为后续的开发APP做准备，因此处理成`解析程序`+`配置文件`，方便后续跨平台和跨语言。  
-
+> 关于解析程序中中间变量过多、删除步骤繁复的问题，正在考虑解决。  
 
 ### 解析程序
 - [x] python  
@@ -19,7 +19,7 @@
 - [x] get book menu
 - [ ] get book detail
 - [ ] get book comment
-- [ ] get article
+- [x] get article
 - [ ] get article comment
 - [ ] tip article (may not support)
 - [ ] reply book comment
@@ -43,8 +43,7 @@
 #### self
 - [x] check in
 - [x] get my notice
-- [x] get my favorite
-- [ ] wish
+- [ ] ~wish~ (will not support)
 - [ ] ......
 
 #### user

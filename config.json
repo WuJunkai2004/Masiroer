@@ -13,10 +13,14 @@
             "file":"searchForum.json"
         }
     ],
-    "book": [
+    "novel": [
         {
             "name":"get_menu",
             "file":"getMenu.json"
+        },
+        {
+            "name":"get_article",
+            "file":"getArticle.json"
         }
     ],
     "lists": [

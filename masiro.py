@@ -83,7 +83,7 @@ class _executor:
                 'Accept-Language':'zh-CN,zh;q=0.9,en;q=0.8'
             }
         }
-        _sys.stderr.write( str(base) )
+        _sys.stderr.write( str(base)+'\n' )
         if(self.rule['isWithData']):
             info[ self.rule['data']['method'] ] = data
         if(self.rule['isWithCookie']):
@@ -141,6 +141,7 @@ class _executor:
                     result[index].append( self.translate_content(sub, method[index]['rule']) )
             else:
                 raise RuntimeError('unknown type: {}'.format(index))
+
         return result
 
 
@@ -159,8 +160,8 @@ _config = _load_config('config.json')
 
 forum = _categories( _config['forum'] )
 lists = _categories( _config['lists'] )
+novel = _categories( _config['novel'] )
 
 auth  = _categories( _config["auth"] )
 user  = _categories( _config['user'] )
-book  = _categories( _config['book'] )
 self  = _categories( _config['self'] )

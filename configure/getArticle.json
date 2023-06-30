@@ -1,0 +1,83 @@
+{
+    "URL":"https://masiro.me/admin/novelReading",
+    "isSaveCookie":true,
+    "isWithCookie":true,
+    "isWithData":true,
+    "data":{
+        "method":"params",
+        "dataset":[
+            {
+                "name":"cid",
+                "type":"int",
+                "required":true
+            }
+        ]
+    },
+    "response":{
+        "order":[
+            "title","text",
+            "temp_translator","temp2_translator","translator","del_temp_translator","del_temp2_translator","translator_id",
+            "create_time","update_time"
+        ],
+                                                                                                    "title":{
+            "type":"regex",
+            "func":"hunt",
+            "rule":"(?<=<h1>\\n).+"
+        },
+        "text":{
+            "type":"regex",
+            "func":"hunt",
+            "rule":"(?<=<div class=\"box-body nvl-content\">\\n)[\\s\\S\\n]+?(?=</div>)"
+        },
+        "temp_translator":{
+            "type":"regex",
+            "func":"seek",
+            "rule":"作者：<a href=\"/admin/userCenterShow\\?user_id=\\d{4,6}\">.+?</a>"
+        },
+        "temp2_translator":{
+            "type":"range",
+            "refer":"temp_translator",
+            "rule":{ 
+                "order":["temp","return"],
+                "temp":{
+                    "type":"regex",
+                    "func":"hunt",
+                    "rule":"(?<=>).+?(?=<)"
+                },
+                "return":{
+                    "type":"return",
+                    "refer":"temp"
+                }
+            }
+        },
+        "translator":{
+            "type":"refer",
+            "rule":["temp2_translator",0]
+        },
+        "del_temp_translator":{
+            "type":"func",
+            "func":"del",
+            "refer":"temp_translator"
+        },
+        "del_temp2_translator":{
+            "type":"func",
+            "func":"del",
+            "refer":"temp2_translator"
+        },
+        "translator_id":{
+            "type":"regex",
+            "func":"hunt",
+            "rule":"(?<=作者：<a href=\"/admin/userCenterShow\\?user_id=)\\d+"
+        },
+        "create_time":{
+            "type":"regex",
+            "func":"hunt",
+            "rule":"(?<=创建: )[ \\d\\-:]{19}"
+        },
+        "update_time":{
+            "type":"regex",
+            "func":"hunt",
+            "rule":"(?<=更新: )[ \\d\\-:]{19}"
+        }
+    }
+}

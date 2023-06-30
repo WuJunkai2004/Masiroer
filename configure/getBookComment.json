@@ -1,0 +1,54 @@
+{
+    "URL":"https://masiro.me/admin/novelView",
+    "isSaveCookie":true,
+    "isWithCookie":true,
+    "isWithData":true,
+    "data":{
+        "method":"params",
+        "dataset":[
+            {
+                "name":"novel_id",
+                "type":"int",
+                "required":true
+            }
+        ]
+    },
+    "response":{
+        "order":[
+            "temp_comment"
+        ],
+        "temp_comment":{
+            "type":"regex",
+            "func":"find",
+            "rule":"\"comment [\\s\\S\\n]+?(<hr>|box-footer)"
+        },
+        "detail":{
+            "type":"range",
+            "refer":"temp_comment",
+            "rule":{
+                "order":[
+                    "temp_main","main","del_temp_main",
+                    "temp_sub" ,"sub" ,"del_temp_sub"
+                ],
+                "temp_main":{
+                    "type":"regex",
+                    "func":"hunt",
+                    "rule":"user-info([\\s\\S\\n]+?</div>){7}"
+                },
+                "main":{
+                    "type":"range",
+                    "refer":"temp_main",
+                    "rule":{ 
+                        "order":[
+                            "user_name","user_img","user_id",
+                            "text","agree"
+                        ]
+                    }
+                },
+                "del_temp_main":{
+                    
+                }
+            }
+        }
+    }
+}
