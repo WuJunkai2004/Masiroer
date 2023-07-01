@@ -26,7 +26,7 @@
             "type":"range",
             "refer":"temp_chapter",
             "rule":{
-                "order":["charpter_name","temp_article","articles","del_temp_article"],
+                "order":["charpter_name","temp_article","articles"],
                 "charpter_name":{
                     "type":"regex",
                     "func":"hunt",
@@ -58,11 +58,6 @@
                             "rule":"\\d\\d-\\d\\d-\\d\\d\\s\\d\\d:\\d\\d"
                         }
                     }
-                },
-                "del_temp_article":{
-                    "type":"func",
-                    "func":"del",
-                    "refer":"temp_article"
                 }
             }
         },

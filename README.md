@@ -3,26 +3,25 @@
 </br>
 
 > 该项目的目的是为后续的开发APP做准备，因此处理成`解析程序`+`配置文件`，方便后续跨平台和跨语言。  
-> 关于解析程序中中间变量过多、删除步骤繁复的问题，正在考虑解决。  
 
 ### 解析程序
 - [x] python  
 - [ ] kitlin  
-- [ ] JavaScript
+- [ ] JavaScript(Node.js version) is Writing 
 
 ### 配置文件
 #### auth
 - [x] login
 - [ ] ~get token~ (will not support)
 
-#### book
-- [x] get book menu
-- [ ] get book detail
-- [ ] get book comment
+#### novel
+- [x] get novel menu
+- [x] get novel info
+- [ ] get novel comment
 - [x] get article
 - [ ] get article comment
 - [ ] tip article (may not support)
-- [ ] reply book comment
+- [ ] reply novel comment
 - [ ] reply article comment
 - [ ] vote article
 - [ ] collect

@@ -16,10 +16,10 @@
     "response":{
         "order":[
             "title","text",
-            "temp_translator","temp2_translator","translator","del_temp_translator","del_temp2_translator","translator_id",
+            "temp_translator","temp2_translator","translator","translator_id",
             "create_time","update_time"
         ],
-                                                                                                    "title":{
+        "title":{
             "type":"regex",
             "func":"hunt",
             "rule":"(?<=<h1>\\n).+"
@@ -53,16 +53,6 @@
         "translator":{
             "type":"refer",
             "rule":["temp2_translator",0]
-        },
-        "del_temp_translator":{
-            "type":"func",
-            "func":"del",
-            "refer":"temp_translator"
-        },
-        "del_temp2_translator":{
-            "type":"func",
-            "func":"del",
-            "refer":"temp2_translator"
         },
         "translator_id":{
             "type":"regex",

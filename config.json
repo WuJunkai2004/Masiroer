@@ -21,6 +21,10 @@
         {
             "name":"get_article",
             "file":"getArticle.json"
+        },
+        {
+            "name":"get_info",
+            "file":"getInfo.json"
         }
     ],
     "lists": [

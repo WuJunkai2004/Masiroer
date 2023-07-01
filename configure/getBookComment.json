@@ -27,8 +27,8 @@
             "refer":"temp_comment",
             "rule":{
                 "order":[
-                    "temp_main","main","del_temp_main",
-                    "temp_sub" ,"sub" ,"del_temp_sub"
+                    "temp_main","main",
+                    "temp_sub" ,"sub" 
                 ],
                 "temp_main":{
                     "type":"regex",

@@ -141,6 +141,10 @@ class _executor:
                     result[index].append( self.translate_content(sub, method[index]['rule']) )
             else:
                 raise RuntimeError('unknown type: {}'.format(index))
+            
+        for name in list(result.keys()):
+            if( name.startswith("temp") ):
+                del result[ name ]
 
         return result
 
