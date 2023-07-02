@@ -18,13 +18,14 @@
 - [x] get novel menu
 - [x] get novel info
 - [ ] get novel comment
+- [x] mark novel
+- [x] unmark novel
 - [x] get article
 - [ ] get article comment
 - [ ] tip article (may not support)
 - [ ] reply novel comment
 - [ ] reply article comment
 - [ ] vote article
-- [ ] collect
 - [ ] report (may not support)
 
 #### forum

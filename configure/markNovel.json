@@ -1,0 +1,29 @@
+{
+    "URL":"https://masiro.me/admin/collectNovel",
+    "isSaveCookie":true,
+    "isWithCookie":true,
+    "isWithData":true,
+    "data":{
+        "method":"params",
+        "dataset":[
+            {
+                "name":"novel_id",
+                "type":"int",
+                "required":true
+            }
+        ]
+    },
+    "response":{
+        "order":[
+            "json","return"
+        ],
+        "json":{
+            "type":"func",
+            "func":"json"
+        },
+        "return":{
+            "type":"return",
+            "refer":"json"
+        }
+    }
+}

@@ -25,6 +25,14 @@
         {
             "name":"get_info",
             "file":"getInfo.json"
+        },
+        {
+            "name":"mark",
+            "file":"markNovel.json"
+        },
+        {
+            "name":"unmark",
+            "file":"unmarkNovel.json"
         }
     ],
     "lists": [

@@ -1,0 +1,26 @@
+{
+    "URL":"https://masiro.me/admin/uncollectNovel",
+    "isSaveCookie":true,
+    "isWithCookie":true,
+    "isWithData":true,
+    "data":{
+        "method":"params",
+        "dataset":[
+            {
+                "name":"novel_id",
+                "type":"int",
+                "required":true
+            }
+        ]
+    },
+    "response":{
+        "order":[
+            "success"
+        ],
+        "success":{
+            "type":"regex",
+            "func":"hunt",
+            "rule":"0|1"
+        }
+    }
+}
