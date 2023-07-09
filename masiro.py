@@ -4,6 +4,13 @@ import sys  as _sys
 
 import requests as _requests
 
+forum = None
+lists = None
+novel = None
+
+auth  = None
+user  = None
+self  = None
 
 class cookies:
     __files__   = []
@@ -37,9 +44,6 @@ class cookies:
     def puts(self, get):
         for name in get.keys():
             self.__cookie__[name] = get[name]
-
-    def clean(self):
-        pass
 
 
 class _executor:
@@ -155,17 +159,20 @@ class _categories:
             setattr(self, files['name'], _executor('configure\\' + files['file']))
 
 
-def _load_config(file):
+def __init__(config_file = 'config.json'):
+    global forum, lists, novel, \
+           auth,  user,  self
+
     with open('config.json', 'r') as fin:
-        return _json.load(fin)
+        _config = _json.load(fin)
 
+    forum = _categories( _config['forum'] )
+    lists = _categories( _config['lists'] )
+    novel = _categories( _config['novel'] )
 
-_config = _load_config('config.json')
+    auth  = _categories( _config["auth"] )
+    user  = _categories( _config['user'] )
+    self  = _categories( _config['self'] )
 
-forum = _categories( _config['forum'] )
-lists = _categories( _config['lists'] )
-novel = _categories( _config['novel'] )
-
-auth  = _categories( _config["auth"] )
-user  = _categories( _config['user'] )
-self  = _categories( _config['self'] )
+if(__name__ == 'masiro'):
+    __init__()
