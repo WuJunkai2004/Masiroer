@@ -70,12 +70,12 @@ class _executor:
         data = self.translate_variables(self.rule['data']['dataset'], args, kwargs)
         base, info = self.translate_request( data )
 
-        request = _requests.request(*base, **info)
+        response = _requests.request(*base, **info)
 
         if(self.rule['isSaveCookie']):
-            self.cook().puts( request.cookies.get_dict() )
+            self.cook().puts( response.cookies.get_dict() )
 
-        return self.translate_content(request.text, self.rule['response'])
+        return self.translate_content(response.text, self.rule['response'])
         
     
     def translate_request(self, data):
