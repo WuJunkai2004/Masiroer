@@ -1,0 +1,25 @@
+{
+    "URL":"http://httpbin.org/get",
+    "isSaveCookie":true,
+    "isWithCookie":true,
+    "isWithData":false,
+    "data":{
+        "method":null,
+        "dataset":[
+            
+        ]
+    },
+    "response":{
+        "order":[
+            "json","return"
+        ],
+        "json":{
+            "type":"func",
+            "func":"json"
+        },
+        "return":{
+            "type":"return",
+            "refer":"json"
+        }
+    }
+}

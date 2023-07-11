@@ -7,7 +7,7 @@ var defined_cookie_file = null
 
 
 function cookies(file = null){
-    let cookie = {}
+    let cookie = {};
     let handle = null;
     if(!file){
         if(!defined_cookie_file){
@@ -18,19 +18,19 @@ function cookies(file = null){
     else{
         defined_cookie_file = file;
     }
+    let data = fopen.readFileSync(file, 'utf8');
+    let lines = data.split('\n');
+    for (let line of lines) {
+        if(line){
+            const [name, value] = line.slice(0, -1).split('\t', 2);
+            cookie[name] = value;
+        }
+    }
+    handle = fopen.openSync(file, 'a+');
     return {
-        "start":()=>{
-            const data = fopen.readFileSync(file, 'utf8');
-            const lines = data.split('\n');
-            for (let line of lines) {
-                const [name, value] = line.slice(0, -1).split('\t', 2);
-                cookie[name] = value;
-            }
-            handle = fopen.openSync(file, 'a+');
-        },
         "set_value":(name, value)=>{
             cookie[name] = value;
-            fopen.writeSync(this.__handle__, `${name}\t${value}\n`);
+            fopen.writeSync(handle, `${name}\t${value}\n`);
         },
         "get_value":(name)=>{
             return cookie[name];
@@ -40,12 +40,33 @@ function cookies(file = null){
         },
         "puts":(get)=>{
             for (let name in get) {
-                if (get.hasOwnProperty(name)) {
-                    cookie[name] = get[name];
-                }
+                cookie[name] = get[name];
             }
+        },
+        "encode":()=>{
+            let lines = [];
+            for(let name in cookie){
+                lines.push(`${name}=${cookie[name]}`);
+            }
+            return lines.join('; ');
         }
     }
+}
+
+
+async function requests(method, url, more){
+    let config = more;
+    config.url = url,config.method = method;
+    let [text, cookies] = await axios(
+        config
+    ).then( response => {
+        console.log(response.data)
+        return [ response.data, response.headers['set-cookies'] ];
+    })
+    return {
+        "text":text,
+        "cookies":cookies
+    };
 }
 
 
@@ -65,7 +86,7 @@ function executor(config_file, use_cookie = cookies){
     }
 
     function translate_request(data){
-        let base =  [ ( rule.isWithDate && ["params"].indexOf(rule.data.method) == -1 )?"POST":"GET", rule.URL ];
+        let base =  [ ( rule.isWithDate && ["params"].indexOf(rule.data.method) == -1 )?"post":"get", rule.URL ];
         let info = {
             'headers' : {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36',
@@ -73,11 +94,21 @@ function executor(config_file, use_cookie = cookies){
                 'Accept-Language':'zh-CN,zh;q=0.9,en;q=0.8'
             }
         };
-        if(rule.isWithDate){
-            info[ rile.data.method ] = data;
+        if(rule.isWithData){
+            switch(rule.data.method){
+                case 'params':{
+                    info.params = data;
+                }break;
+                case 'json':{
+                    info.data = data;
+                }break;
+                default:{
+                    throw "stop"
+                }break;
+            }
         }
         if(rule.isWithCookie){
-            info.cookies = cook().gets();
+            info.headers.cookie = cook().encode();
         }
         return [base, info];
     }
@@ -87,20 +118,15 @@ function executor(config_file, use_cookie = cookies){
             result[ dataset[index].name ] = args[index];
         }
         for(let index in dataset){
-            null;
+            null; // check if all of required had existed
         }
         return result;
     }
 
     function translate_content(data, method){
-        return null;
-    }
-
-    async function requests(method, url, more){
-        return {
-            "text":null,
-            "cookies":{"one":"11111"}
-        }
+        console.log('data in three');
+        console.log(data);
+        return data;
     }
 
     return async function(...args){
@@ -109,9 +135,7 @@ function executor(config_file, use_cookie = cookies){
         }
         let data = translate_variables(rule.data.dataset, args)
         let [base, info] = translate_request( data );
-        console.log(base)
-        console.log(info)
-        let response = await requests(base[0], base[1], info)
+        let response = await requests(base[0], base[1], info);
         if(rule.isSaveCookie){
             cook().puts( response.cookies );
         }
