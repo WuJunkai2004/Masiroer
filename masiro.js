@@ -1,9 +1,12 @@
 const axios = require("axios");
 const fopen = require('fs');
+const { delimiter } = require("path");
+const { json } = require("stream/consumers");
+const { resourceLimits } = require("worker_threads");
 
 axios.defaults.withCredentials = true;
 
-var defined_cookie_file = null
+var defined_cookie_file = "cookie.tmp";
 
 
 function cookies(file = null){
@@ -60,8 +63,20 @@ async function requests(method, url, more){
     let [text, cookies] = await axios(
         config
     ).then( response => {
-        console.log(response.data)
-        return [ response.data, response.headers['set-cookies'] ];
+        let data = response.data, cookie = response.headers['set-cookie'],real_cookie={};
+        if(typeof data != "string"){
+            data = JSON.stringify(data);
+        }
+        for(let lines of cookie){
+            let line=lines.replace(/expires=.+?;/gi,'')
+                          .replace(/Max-age=.+?;/gi,'')
+                          .replace(/path=.+/gi,'')
+                          .replace(/;/,'')
+                          .trim();
+            let [name, value] = line.slice(0, -1).split('=', 2);
+            real_cookie[name] = value;
+        }
+        return [ data, real_cookie ];
     })
     return {
         "text":text,
@@ -74,7 +89,7 @@ function executor(config_file, use_cookie = cookies){
     let is_load = false;
     let file = config_file;
     let rule = null;
-    let cook = use_cookie
+    let cook = use_cookie;
 
     function load(){
         try {
@@ -117,16 +132,73 @@ function executor(config_file, use_cookie = cookies){
         for(let index in args){
             result[ dataset[index].name ] = args[index];
         }
-        for(let index in dataset){
+        for(let index of dataset){
             null; // check if all of required had existed
         }
         return result;
     }
 
     function translate_content(data, method){
-        console.log('data in three');
-        console.log(data);
-        return data;
+        let result = {} ;
+        for(let index of method.order){
+            switch( method[index].type ){
+                case "return":{
+                    return result[ method[index].refer ]
+                };
+
+                case "regex":{
+                    switch(method[index].func){
+                        default:{
+                           null
+                        }break;
+                    }
+                }break;
+
+                case "func":{
+                    switch (method[index].func ){
+                        case "json":{
+                            result[index] = JSON.parse(data);
+                        }break;
+                        case "code":{
+                            throw "decode unicode";
+                        }break;
+                        case "save":{
+                            fopen.writeFileSync("temp/temp.txt", data, {
+                                encoding:"utf8",
+                                flag:"w+"
+                            })
+                        }break;
+                        case "del":{
+                            delete result[ method[index].refer ];
+                        }break;
+                    }
+                }break
+
+                case "refer":{
+                    let get = result;
+                    for(let item of method[index].rule)
+                        get = get[item];
+                    result[index] = get;
+                }break;
+
+                case "range":{
+                    result[index] = [];
+                    for(let sub of result[ method[index].refer ]){
+                        result[index].push( translate_content(sub, method[index].rule) );
+                    }
+                }break;
+
+                default:{
+                    throw `[RuntimeError] : unknown type ${index}`;
+                }
+            }
+        }
+
+        for(let name in result)
+            if( name.startsWith('temp') )
+                delete result[ name ] ;
+
+        return result;
     }
 
     return async function(...args){
@@ -139,6 +211,7 @@ function executor(config_file, use_cookie = cookies){
         if(rule.isSaveCookie){
             cook().puts( response.cookies );
         }
+        console.log(response.cookies);
         return translate_content(response.text, rule.response);
     };
 }
@@ -147,9 +220,9 @@ function executor(config_file, use_cookie = cookies){
 function categories(load){
     let executors = {}
     for(let index in load){
-        executors[ load[index].name ] = executor('configure\\' + load[index].file)
+        executors[ load[index].name ] = executor('configure\\' + load[index].file);
     }
-    return executors
+    return executors;
 }
 
 const config = JSON.parse( fopen.readFileSync('config.json') );
