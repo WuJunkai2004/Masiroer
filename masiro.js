@@ -129,11 +129,15 @@ function executor(config_file, use_cookie = cookies){
     }
     function translate_variables(dataset, args){
         let result = {};
-        for(let index in args){
+        for(let index in args)
             result[ dataset[index].name ] = args[index];
-        }
-        for(let index of dataset){
-            null; // check if all of required had existed
+        for(let item of dataset){
+            if( Object.keys(result).indexOf(item.name) == -1 ){
+                if(item.required)
+                    throw `AttributeError : The Attibution of ${item.name} is Required` ;
+                if(!item.required && Object.keys(item).indexOf("defined") != -1)
+                    result[ item.name ] = item.defined ;
+            }
         }
         return result;
     }
@@ -147,11 +151,10 @@ function executor(config_file, use_cookie = cookies){
                 };
 
                 case "regex":{
-                    switch(method[index].func){
-                        default:{
-                           null
-                        }break;
-                    }
+                    fopen.writeFileSync('temp/js.html',data,{
+                        flag:'w+',
+                        encoding:"utf8"
+                    })
                 }break;
 
                 case "func":{
