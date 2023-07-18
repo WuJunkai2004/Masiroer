@@ -1,12 +1,31 @@
 const axios = require("axios");
 const fopen = require('fs');
-const { delimiter } = require("path");
-const { json } = require("stream/consumers");
-const { resourceLimits } = require("worker_threads");
 
 axios.defaults.withCredentials = true;
 
 var defined_cookie_file = "cookie.tmp";
+
+const regex = {
+    "hunt":(pattern,string)=>{
+        let ans=string.match( RegExp(pattern) );
+        if(ans)
+            return ans[0];
+        else   
+            console.error(pattern+'\n'+string)
+    },
+    "seek":(pattern,string)=>{
+        let ans = [],from = string.matchAll(RegExp(pattern, 'g'))
+        for(let item of from)
+            ans.push( item[0] );
+        return ans;
+    },
+    "find":(pattern,string)=>{
+        let ans = [],from = string.matchAll(RegExp(pattern, 'g'));
+        for(let item of from)
+            ans.push(item[0]);
+        return ans;
+    },
+}
 
 
 function cookies(file = null){
@@ -151,10 +170,7 @@ function executor(config_file, use_cookie = cookies){
                 };
 
                 case "regex":{
-                    fopen.writeFileSync('temp/js.html',data,{
-                        flag:'w+',
-                        encoding:"utf8"
-                    })
+                    result[ index ] = regex[ method[index].func ]( method[index].rule, data )
                 }break;
 
                 case "func":{
@@ -163,7 +179,7 @@ function executor(config_file, use_cookie = cookies){
                             result[index] = JSON.parse(data);
                         }break;
                         case "code":{
-                            throw "decode unicode";
+                            console.error( "decode unicode" );
                         }break;
                         case "save":{
                             fopen.writeFileSync("temp/temp.txt", data, {
@@ -197,6 +213,8 @@ function executor(config_file, use_cookie = cookies){
             }
         }
 
+        console.log(result);
+
         for(let name in result)
             if( name.startsWith('temp') )
                 delete result[ name ] ;
@@ -205,16 +223,13 @@ function executor(config_file, use_cookie = cookies){
     }
 
     return async function(...args){
-        if(!is_load){
+        if(!is_load)
             load();
-        }
         let data = translate_variables(rule.data.dataset, args)
         let [base, info] = translate_request( data );
         let response = await requests(base[0], base[1], info);
-        if(rule.isSaveCookie){
+        if(rule.isSaveCookie)
             cook().puts( response.cookies );
-        }
-        console.log(response.cookies);
         return translate_content(response.text, rule.response);
     };
 }
@@ -222,9 +237,8 @@ function executor(config_file, use_cookie = cookies){
 
 function categories(load){
     let executors = {}
-    for(let index in load){
+    for(let index in load)
         executors[ load[index].name ] = executor('configure\\' + load[index].file);
-    }
     return executors;
 }
 

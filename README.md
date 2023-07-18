@@ -51,3 +51,7 @@
 #### user
 - [x] get user info box
 - [ ] ......
+
+### 目前已知的问题
+> - novel.get_info中，返回值 mark_status 有歧义
+> - novel.get_menu中，章节的 url 不能正常获取
