@@ -121,6 +121,8 @@ class _executor:
                     result[index] = [ get.group() for get in _re.finditer(method[index]["rule"], data) ]
                 elif( method[index]['func'] == 'seek' ):
                     result[index] = _re.findall(method[index]['rule'], data)
+                elif( method[index]['func'] == 'exist'):
+                    result[index] = _re.search(method[index]["rule"], data) != None
 
             elif( method[index]["type"] == 'func'   ):
                 if  ( method[index]["func"] == 'json' ):
@@ -130,8 +132,6 @@ class _executor:
                 elif( method[index]["func"] == "save" ):
                     with open("temp/temp.txt", "w+", encoding='UTF-8') as fout:
                         fout.write(data)
-                elif( method[index]["func"] == 'del'  ):
-                    del result[ method[index]['refer'] ]
 
             elif( method[index]['type'] == 'refer'  ):
                 get = result

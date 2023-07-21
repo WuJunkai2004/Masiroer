@@ -6,25 +6,28 @@ axios.defaults.withCredentials = true;
 var defined_cookie_file = "cookie.tmp";
 
 const regex = {
-    "hunt":(pattern,string)=>{
+    "hunt":(pattern, string)=>{
         let ans=string.match( RegExp(pattern) );
         if(ans)
             return ans[0];
         else   
             console.error(pattern+'\n'+string)
     },
-    "seek":(pattern,string)=>{
+    "seek":(pattern, string)=>{
         let ans = [],from = string.matchAll(RegExp(pattern, 'g'))
         for(let item of from)
             ans.push( item[0] );
         return ans;
     },
-    "find":(pattern,string)=>{
+    "find":(pattern, string)=>{
         let ans = [],from = string.matchAll(RegExp(pattern, 'g'));
         for(let item of from)
             ans.push(item[0]);
         return ans;
     },
+    "exist":(pattern, string)=>{
+        return RegExp(pattern).exec(string) != null;
+    }
 }
 
 
@@ -32,9 +35,8 @@ function cookies(file = null){
     let cookie = {};
     let handle = null;
     if(!file){
-        if(!defined_cookie_file){
+        if(!defined_cookie_file)
             throw "Need a cookies file path";
-        }
         file = defined_cookie_file;
     }
     else{
@@ -61,15 +63,13 @@ function cookies(file = null){
             return cookie;
         },
         "puts":(get)=>{
-            for (let name in get) {
+            for (let name in get) 
                 cookie[name] = get[name];
-            }
         },
         "encode":()=>{
             let lines = [];
-            for(let name in cookie){
+            for(let name in cookie)
                 lines.push(`${name}=${cookie[name]}`);
-            }
             return lines.join('; ');
         }
     }
@@ -83,9 +83,8 @@ async function requests(method, url, more){
         config
     ).then( response => {
         let data = response.data, cookie = response.headers['set-cookie'],real_cookie={};
-        if(typeof data != "string"){
+        if(typeof data != "string")
             data = JSON.stringify(data);
-        }
         for(let lines of cookie){
             let line=lines.replace(/expires=.+?;/gi,'')
                           .replace(/Max-age=.+?;/gi,'')

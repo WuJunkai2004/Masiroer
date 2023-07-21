@@ -19,7 +19,7 @@
             "author","translator",
             "status","tags",
             "comment","like","mark","read",
-            "temp_mark_status","temp2_mark_status","mark_status","read_status"
+            "temp_mark_status","temp2_mark_status","is_marked","read_status"
         ],
         "title":{
             "type":"regex",
@@ -88,8 +88,8 @@
                 "order":["gets","return"],
                 "gets":{
                     "type":"regex",
-                    "func":"hunt",
-                    "rule":"已?收藏"
+                    "func":"exist",
+                    "rule":"已"
                 },
                 "return":{
                     "type":"return",
@@ -97,7 +97,7 @@
                 }
             }
         },
-        "mark_status":{
+        "is_marked":{
             "type":"refer",
             "rule":["temp2_mark_status", 0]
         },
