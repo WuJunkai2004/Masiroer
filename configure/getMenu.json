@@ -35,7 +35,7 @@
                 "temp_article":{
                     "type":"regex",
                     "func":"find",
-                    "rule":"<li[\\s\\S\\n]+?li>"
+                    "rule":"<a[\\s\\S\\n]+?li>"
                 },
                 "articles":{
                     "type":"range",
