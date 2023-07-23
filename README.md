@@ -9,7 +9,7 @@
 ### 解析程序
 - [x] python  
 - [ ] kitlin  
-- [ ] JavaScript(Node.js version) is Writing 
+- [x] JavaScript(Node.js version)
 
 ### 配置文件
 #### auth
@@ -31,7 +31,10 @@
 - [ ] report (may not support)
 
 #### forum
-- [ ] search forum
+- [x] load forum list
+- [x] load homopage
+- [x] load more post
+- [x] search forum
 - [ ] reply post
 - [ ] vote post
 - [ ] ......

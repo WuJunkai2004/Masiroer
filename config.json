@@ -1,16 +1,20 @@
 {
     "forum": [
         {
+            "name":"list",
+            "file":"forumList.json"
+        },
+        {
             "name":"search",
-            "file":"searchForum.json"
+            "file":"forumList.json"
         },
         {
-            "name":"reply_post",
-            "file":"searchForum.json"
+            "name":"load_index",
+            "file":"loadIndexPost.json"
         },
         {
-            "name":"vote_post",
-            "file":"searchForum.json"
+            "name":"load_more",
+            "file":"loadMorePost.json"
         }
     ],
     "novel": [
