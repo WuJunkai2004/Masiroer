@@ -9,8 +9,8 @@
             "file":"forumList.json"
         },
         {
-            "name":"load_index",
-            "file":"loadIndexPost.json"
+            "name":"load_home",
+            "file":"loadHomePost.json"
         },
         {
             "name":"load_more",

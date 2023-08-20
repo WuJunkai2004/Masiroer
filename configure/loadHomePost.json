@@ -1,0 +1,37 @@
+{
+    "URL":"https://masiro.me/admin/forum",
+    "isSaveCookie":true,
+    "isWithCookie":true,
+    "isWithData":true,
+    "data":{
+        "method":"params",
+        "dataset":[
+            {
+                "name":"forum_id",
+                "type":"int",
+                "required":true
+            }
+        ]
+    },
+    "response":{
+        "order":[
+            "token","title","is_follow"
+        ],
+        "token":{
+            "type":"regex",
+            "func":"hunt",
+            "rule":"(?<=token\" value=\").+?(?=\")"
+        },
+        "title":{
+            "type":"regex",
+            "func":"hunt",
+            "rule":"(?<=forum-title \">).+?(?=</)"
+        },
+        "is_follow":{
+            "type":"regex",
+            "func":"exist",
+            "rule":"none.+?\\+\\s关注"
+        }
+
+    }
+}
